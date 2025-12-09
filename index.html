@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaGreen | Tu Farmacia de Confianza</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- 1. CONFIGURACIÓN GENERAL Y VARIABLES --- */
+        :root {
+            /* Paleta Verde Farmacia Moderna */
+            --primary: #059669;       /* Verde Esmeralda */
+            --primary-dark: #047857;  /* Verde Oscuro */
+            --secondary: #34d399;     /* Verde Menta */
+            --accent: #d1fae5;        /* Verde muy claro (fondos) */
+            
+            --text-main: #1f2937;     /* Gris muy oscuro */
+            --text-light: #6b7280;    /* Gris medio */
+            --white: #ffffff;
+            
+            /* UI */
+            --gradient: linear-gradient(135deg, #059669 0%, #34d399 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --container: 1200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: var(--text-main); }
+        
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER Y NAV --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo span { color: var(--text-main); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        .nav-icons { display: flex; gap: 1rem; align-items: center; }
+
+        .btn-icon {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            transition: transform 0.2s;
+        }
+        .btn-icon:hover { transform: scale(1.1); color: var(--primary); }
+
+        .badge {
+            position: absolute;
+            top: -5px; right: -8px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(5, 150, 105, 0.05), rgba(52, 211, 153, 0.1));
+            padding: 4rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        .hero h1 span { color: var(--primary); }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto; margin-right: auto;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(5, 150, 105, 0.39);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(5, 150, 105, 0.23); }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* --- 4. SECCIÓN FEATURES --- */
+        .features {
+            background: white;
+            padding: 3rem 0;
+            margin-top: -30px;
+            border-radius: 30px 30px 0 0;
+            position: relative;
+            z-index: 5;
+        }
+        .features-grid {
+            max-width: var(--container);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+        .feature-item i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .feature-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .feature-item p { font-size: 0.9rem; color: var(--text-light); }
+
+        /* --- 5. CATALOGO --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title h2 { font-size: 2.25rem; margin-bottom: 0.5rem; }
+        .section-title p { color: var(--text-light); }
+
+        .main-container {
+            max-width: var(--container);
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Barra de herramientas del catálogo */
+        .catalog-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+        }
+        .search-box i {
+            position: absolute;
+            left: 10px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        /* Grid de Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 1px solid #f3f4f6;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            height: 200px;
+            background: #f9fafb;
+            overflow: hidden;
+        }
+        .card-img-wrapper img {
+            width: 100%; height: 100%; object-fit: contain; /* Contain para ver el producto completo */
+            padding: 1rem;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .card-img-wrapper img { transform: scale(1.05); }
+
+        .card-body { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-cat { color: var(--primary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+        .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; flex-grow: 1; }
+        
+        .card-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .price { font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
+        
+        .card-actions {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 40px;
+            gap: 0.5rem;
+        }
+
+        .btn-view {
+            background: #f3f4f6;
+            color: var(--text-main);
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-view:hover { background: #e5e7eb; }
+
+        .btn-add {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .btn-add:hover { background: var(--primary-dark); }
+
+        /* --- 6. ABOUT SECTION --- */
+        .about-section {
+            background: white;
+            padding: 5rem 0;
+        }
+        .about-grid {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-img img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+        }
+        .about-content h2 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary-dark); }
+        .about-content p { margin-bottom: 1rem; color: var(--text-light); }
+        .stats { display: flex; gap: 2rem; margin-top: 2rem; }
+        .stat-item h4 { font-size: 2rem; color: var(--primary); }
+        .stat-item span { font-size: 0.9rem; color: var(--text-light); }
+
+        /* --- 7. CONTACT SECTION --- */
+        .contact-section {
+            padding: 5rem 0;
+            max-width: var(--container);
+            margin: 0 auto;
+        }
+        .contact-wrapper {
+            background: var(--gradient);
+            border-radius: 24px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+        .contact-info h2 { color: white; font-size: 2rem; margin-bottom: 1rem; }
+        .contact-info p { opacity: 0.9; margin-bottom: 2rem; }
+        .info-list li { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; color: var(--text-main); margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 0.8rem;
+            border: 1px solid #e5e7eb; border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        .submit-btn {
+            width: 100%; background: var(--text-main); color: white; padding: 1rem;
+            border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+        }
+
+        /* --- 8. FOOTER --- */
+        footer {
+            background: #111827;
+            color: #d1d5db;
+            padding: 4rem 0 2rem;
+        }
+        .footer-grid {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-col h4 { color: white; margin-bottom: 1.5rem; }
+        .footer-col ul li { margin-bottom: 0.75rem; }
+        .footer-col ul li a:hover { color: var(--primary); }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- MODALES & OVERLAYS --- */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .overlay.active { opacity: 1; pointer-events: all; }
+
+        /* Sidebar Carrito */
+        .cart-sidebar {
+            position: fixed; top: 0; right: 0; width: 400px; height: 100%;
+            background: white; z-index: 2100;
+            transform: translateX(100%); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-sidebar.active { transform: translateX(0); }
+        
+        .cart-header { padding: 1.5rem; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; background: #f9fafb; }
+        .cart-body { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .cart-footer { padding: 1.5rem; border-top: 1px solid #e5e7eb; background: #fff; }
+        
+        .cart-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center; }
+        .cart-item img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+        .cart-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem; }
+
+        /* Modal de Producto */
+        .product-modal {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white; width: 90%; max-width: 800px;
+            border-radius: 20px; z-index: 2100;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+            display: grid; grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+        .product-modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: all; }
+        
+        .modal-img { background: #f3f4f6; display: flex; align-items: center; justify-content: center; }
+        .modal-img img { max-width: 80%; max-height: 80%; }
+        .modal-content { padding: 2.5rem; position: relative; }
+        .close-modal { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+        
+        .tag { background: var(--accent); color: var(--primary-dark); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .modal-price { font-size: 2rem; font-weight: 700; color: var(--primary); margin: 1rem 0; }
+        
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: #1f2937; color: white; padding: 12px 24px; border-radius: 50px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px;
+            z-index: 3000; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .about-grid, .contact-wrapper, .product-modal { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* En versión movil ocultamos links simple por simplicidad */
+            .cart-sidebar { width: 100%; }
+            .modal-img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="ph-fill ph-first-aid-kit" style="font-size: 28px;"></i>
+                Pharma<span>Green</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#inicio" class="active">Inicio</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="btn-icon" onclick="toggleCart()">
+                    <i class="ph ph-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <span class="badge-pill">Envío Gratis en pedidos +50€</span>
+            <h1>Cuidamos de ti y de <br><span>tu salud integral</span></h1>
+            <p>La farmacia online líder en servicio y rapidez. Encuentra tus medicamentos, dermocosmética y suplementos con el asesoramiento de expertos.</p>
+            <div class="hero-btns">
+                <a href="#catalogo" class="btn btn-primary">Ver Productos <i class="ph-bold ph-arrow-right"></i></a>
+                <a href="#nosotros" class="btn btn-outline">Saber más</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="features">
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="ph-duotone ph-truck"></i>
+                <h3>Envío Rápido 24h</h3>
+                <p>Recibe tu pedido mañana mismo.</p>
+            </div>
+            <div class="feature-item">
+                <i class="ph-duotone ph-shield-check"></i>
+                <h3>100% Seguro</h3>
+                <p>Pagos y datos protegidos.</p>
+            </div>
+            <div class="feature-item">
+                <i class="ph-duotone ph-chats-circle"></i>
+                <h3>Atención Farmacéutica</h3>
+                <p>Chat con expertos reales.</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="catalogo" class="main-container">
+        <div class="section-title">
+            <h2>Nuestra Selección</h2>
+            <p>Productos destacados de las mejores marcas.</p>
+        </div>
+
+        <div class="catalog-toolbar">
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="filterProducts('all', this)">Todo</button>
+                <button class="filter-btn" onclick="filterProducts('medicamentos', this)">Medicamentos</button>
+                <button class="filter-btn" onclick="filterProducts('cosmetica', this)">Dermocosmética</button>
+                <button class="filter-btn" onclick="filterProducts('suplementos', this)">Suplementos</button>
+            </div>
+            <div class="search-box">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Buscar producto..." onkeyup="searchProducts()">
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            </div>
+    </section>
+
+    <section id="nosotros" class="about-section">
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Farmacia Moderna">
+            </div>
+            <div class="about-content">
+                <h2>Expertos en Salud Digital</h2>
+                <p>PharmaGreen nació con la misión de acercar la farmacia tradicional al mundo digital sin perder el trato humano. Contamos con un equipo de 15 farmacéuticos colegiados listos para revisar cada pedido.</p>
+                <p>Trabajamos solo con laboratorios certificados y garantizamos la trazabilidad de todos nuestros medicamentos y productos de parafarmacia.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <h4>+50k</h4>
+                        <span>Clientes Felices</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4>+200</h4>
+                        <span>Marcas Top</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact-section">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2>¿Necesitas ayuda?</h2>
+                <p>Nuestro equipo de soporte está disponible de Lunes a Viernes de 9:00 a 20:00.</p>
+                <ul class="info-list">
+                    <li><i class="ph-fill ph-map-pin"></i> Calle Salud 123, Madrid, España</li>
+                    <li><i class="ph-fill ph-phone"></i> +34 912 345 678</li>
+                    <li><i class="ph-fill ph-envelope"></i> hola@pharmagreen.com</li>
+                </ul>
+            </div>
+            <div class="contact-form">
+                <form onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" required placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" required placeholder="tucorreo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea rows="4" required placeholder="¿En qué podemos ayudarte?"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="color:white; margin-bottom: 1rem;">
+                    <i class="ph-fill ph-first-aid-kit"></i> PharmaGreen
+                </div>
+                <p style="font-size: 0.9rem; opacity: 0.7;">Tu salud es nuestra prioridad. Farmacia autorizada por la Agencia Española de Medicamentos.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Categorías</h4>
+                <ul>
+                    <li><a href="#">Medicamentos</a></li>
+                    <li><a href="#">Higiene Bucal</a></li>
+                    <li><a href="#">Cosmética Natural</a></li>
+                    <li><a href="#">Bebés y Mamás</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 PharmaGreen S.L. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Tu Cesta <span style="font-size:0.9rem; font-weight:400; color:var(--text-light)">(<span id="cartItemsCount">0</span> items)</span></h3>
+            <button class="btn-icon" onclick="toggleCart()"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="cart-body" id="cartBody">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotalValue">0.00 €</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="checkout()">
+                Tramitar Pedido
+            </button>
+        </div>
+    </div>
+
+    <div class="product-modal" id="productModal">
+        <div class="modal-img">
+            <img id="modalImg" src="" alt="">
+        </div>
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeAll()"><i class="ph ph-x"></i></button>
+            <span class="tag" id="modalCat">Categoría</span>
+            <h2 id="modalTitle" style="margin-top: 1rem; font-size: 1.8rem;">Nombre Producto</h2>
+            <div class="modal-price" id="modalPrice">0.00 €</div>
+            <p id="modalDesc" style="color: var(--text-light); margin-bottom: 1.5rem;">Descripción...</p>
+            
+            <h4 style="margin-bottom:0.5rem">Modo de empleo:</h4>
+            <p id="modalUsage" style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 2rem;">...</p>
+
+            <button class="btn btn-primary" id="modalAddBtn">
+                Añadir al Carrito
+            </button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="ph-fill ph-check-circle" style="color: #4ade80; font-size: 1.5rem;"></i>
+        <span>Producto añadido correctamente</span>
+    </div>
+
+    <script>
+        // --- DATA ---
+        // Imagenes generadas con placeholder verde para mantener estilo
+        const products = [
+            { 
+                id: 1, 
+                name: "Paracetamol 1g Complex", 
+                category: "medicamentos", 
+                price: 4.50, 
+                image: "https://placehold.co/400x400/f3f4f6/059669?text=Paracetamol",
+                desc: "Alivio eficaz del dolor leve o moderado y de la fiebre. Formato de rápida absorción.",
+                usage: "Tomar 1 comprimido cada 8 horas con agua. No superar 3 al día."
+            },
+            { 
+                id: 2, 
+                name: "Sérum Hyaluronic", 
+                category: "cosmetica", 
+                price: 24.99, 
+                image: "https://placehold.co/400x400/f3f4f6/34d399?text=Serum+Bio",
+                desc: "Hidratación profunda con ácido hialurónico puro. Piel más tersa y luminosa en 7 días.",
+                usage: "Aplicar 3 gotas por la noche sobre la piel limpia antes de la crema."
+            },
+            { 
+                id: 3, 
+                name: "Magnesio + Potasio", 
+                category: "suplementos", 
+                price: 12.00, 
+                image: "https://placehold.co/400x400/f3f4f6/059669?text=Magnesio",
+                desc: "Reduce el cansancio y la fatiga muscular. Ideal para deportistas.",
+                usage: "Disolver un cacito en agua por las mañanas."
+            },
+            { 
+                id: 4, 
+                name: "Crema Solar SPF 50+", 
+                category: "cosmetica", 
+                price: 18.50, 
+                image: "https://placehold.co/400x400/f3f4f6/34d399?text=SPF+50",
+                desc: "Protección muy alta contra rayos UVA/UVB. Textura no grasa y resistente al agua.",
+                usage: "Aplicar generosamente 30 min antes de la exposición solar."
+            },
+            { 
+                id: 5, 
+                name: "Ibuprofeno 400mg", 
+                category: "medicamentos", 
+                price: 3.90, 
+                image: "https://placehold.co/400x400/f3f4f6/059669?text=Ibuprofeno",
+                desc: "Antiinflamatorio no esteroideo indicado para dolor de cabeza, dental o muscular.",
+                usage: "Tomar con alimentos. 1 comprimido cada 6-8 horas."
+            },
+            { 
+                id: 6, 
+                name: "Multivitamínico Total", 
+                category: "suplementos", 
+                price: 15.95, 
+                image: "https://placehold.co/400x400/f3f4f6/059669?text=Vitaminas",
+                desc: "Complejo con 12 vitaminas y 7 minerales para reforzar el sistema inmune.",
+                usage: "1 cápsula al día en el desayuno."
+            },
+            { 
+                id: 7, 
+                name: "Agua Micelar 500ml", 
+                category: "cosmetica", 
+                price: 9.99, 
+                image: "https://placehold.co/400x400/f3f4f6/34d399?text=Agua+Micelar",
+                desc: "Limpia, desmaquilla y calma en un solo paso. Para pieles sensibles.",
+                usage: "Aplicar con un algodón sobre rostro y ojos. No necesita aclarado."
+            },
+            { 
+                id: 8, 
+                name: "Colágeno Hidrolizado", 
+                category: "suplementos", 
+                price: 21.00, 
+                image: "https://placehold.co/400x400/f3f4f6/059669?text=Colageno",
+                desc: "Mejora la salud de articulaciones, huesos y piel. Sabor vainilla.",
+                usage: "Mezclar una cucharada en leche, café o yogur."
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        // --- ELEMENTS ---
+        const productsGrid = document.getElementById('productsGrid');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('overlay');
+        const productModal = document.getElementById('productModal');
+        const searchInput = document.getElementById('searchInput');
+
+        // --- LOGIC ---
+
+        // 1. Render Products
+        function renderProducts(items) {
+            productsGrid.innerHTML = '';
+            if(items.length === 0) {
+                productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: var(--text-light);">No se encontraron productos.</p>';
+                return;
+            }
+
+            items.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper" onclick="openProductModal(${p.id})">
+                        <img src="${p.image}" alt="${p.name}">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-cat">${p.category}</span>
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-price-row">
+                            <span class="price">${p.price.toFixed(2)}€</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-view" onclick="openProductModal(${p.id})">Ver detalles</button>
+                            <button class="btn-add" onclick="addToCart(${p.id})">
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // 2. Filter & Search
+        function filterProducts(category, btn) {
+            // UI Button state
+            if(btn) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            
+            currentFilter = category;
+            applyFilters();
+        }
+
+        function searchProducts() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase();
+            
+            const filtered = products.filter(p => {
+                const matchCat = currentFilter === 'all' || p.category === currentFilter;
+                const matchSearch = p.name.toLowerCase().includes(query);
+                return matchCat && matchSearch;
+            });
+
+            renderProducts(filtered);
+        }
+
+        // 3. Cart Functions
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+            showToast();
+            // Close modal if open
+            if(productModal.classList.contains('active')) closeAll();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countSpan = document.getElementById('cartCount');
+            const itemsCountSpan = document.getElementById('cartItemsCount');
+            const cartBody = document.getElementById('cartBody');
+            const totalVal = document.getElementById('cartTotalValue');
+
+            countSpan.innerText = cart.length;
+            itemsCountSpan.innerText = cart.length;
+
+            // Total
+            const total = cart.reduce((acc, item) => acc + item.price, 0);
+            totalVal.innerText = total.toFixed(2) + ' €';
+
+            // List
+            cartBody.innerHTML = '';
+            if(cart.length === 0) {
+                cartBody.innerHTML = '<p style="text-align:center; color:#9ca3af; margin-top:2rem;">Tu cesta está vacía</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const row = document.createElement('div');
+                    row.className = 'cart-item';
+                    row.innerHTML = `
+                        <img src="${item.image}" alt="img">
+                        <div style="flex:1">
+                            <div style="font-weight:600; font-size:0.9rem;">${item.name}</div>
+                            <div style="color:#6b7280; font-size:0.85rem;">${item.price.toFixed(2)}€</div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="color:#ef4444; background:none; border:none; cursor:pointer;">
+                            <i class="ph-fill ph-trash" style="font-size:1.2rem"></i>
+                        </button>
+                    `;
+                    cartBody.appendChild(row);
+                });
+            }
+        }
+
+        function toggleCart() {
+            cartSidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            // If opening cart, ensure modal is closed logic handled by UI stack usually, 
+            // but here simply:
+            if(cartSidebar.classList.contains('active')) productModal.classList.remove('active');
+        }
+
+        // 4. Modal Functions
+        function openProductModal(id) {
+            const p = products.find(prod => prod.id === id);
+            
+            document.getElementById('modalImg').src = p.image;
+            document.getElementById('modalCat').innerText = p.category;
+            document.getElementById('modalTitle').innerText = p.name;
+            document.getElementById('modalPrice').innerText = p.price.toFixed(2) + ' €';
+            document.getElementById('modalDesc').innerText = p.desc;
+            document.getElementById('modalUsage').innerText = p.usage;
+            
+            // Update button onclick
+            const btn = document.getElementById('modalAddBtn');
+            btn.onclick = () => addToCart(p.id);
+
+            productModal.classList.add('active');
+            overlay.classList.add('active');
+            cartSidebar.classList.remove('active'); // Close cart if open
+        }
+
+        function closeAll() {
+            cartSidebar.classList.remove('active');
+            productModal.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // 5. Utils
+        function showToast() {
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            alert('¡Gracias por contactar con PharmaGreen! Hemos recibido tu mensaje y te responderemos en breve.');
+            e.target.reset();
+        }
+
+        function checkout() {
+            if(cart.length === 0) return alert('La cesta está vacía');
+            alert('Redirigiendo a pasarela de pago segura... (Demo)');
+            cart = [];
+            updateCartUI();
+            closeAll();
+        }
+
+        // Init
+        renderProducts(products);
+
+    </script>
+</body>
+</html>
